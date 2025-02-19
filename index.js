@@ -62,13 +62,13 @@ app.get("/", (req, res) => {
   
 
   app.post('/book/edit', (req, res) => {
-    const { id, bookname, author, price, imageUrl, bestSeller, newCollection } = req.body;
+    const { id, bookname, author, price, image, bestSeller, newCollection } = req.body;
 
     BookModel.findByIdAndUpdate(id, {
         bookname,
         author,
         price,
-        imageUrl,
+        image,
         bestSeller: bestSeller ? "Yes" : "No",
         newCollection: newCollection ? "Yes" : "No"
     })
