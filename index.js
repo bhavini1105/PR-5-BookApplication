@@ -73,7 +73,6 @@ app.get("/", (req, res) => {
         newCollection: newCollection ? "Yes" : "No"
     })
     .then(() => {
-        console.log("Book Updated...");
         return res.redirect('/data'); 
     })
     .catch((err) => {
@@ -87,7 +86,6 @@ app.get("/", (req, res) => {
   app.get("/data", (req, res) => {
     BookModel.find({})
       .then((books) => {
-        console.log("Books retrieved:", books); 
         res.render("data", { books }); 
       })
       .catch((err) => {
@@ -117,22 +115,18 @@ app.get("/", (req, res) => {
     if ( email === loginAdmin.email && password === loginAdmin.password) {
       return res.render("book"); 
     } else {
-      res.render("login", { error: "Invalid username or password" }); 
+      res.render("login"); 
     }
   });
   
 
   app.post("/addbook", (req, res) => {
-    console.log("Raw Data:", req.body);
 
     req.body.bestSeller = req.body.bestSeller ? true : false;
     req.body.newCollection = req.body.newCollection ? true : false;
 
-    console.log("Processed Data:", req.body);
-
     BookModel.create(req.body)
         .then((data) => {
-            console.log("Book added:", data);
             res.redirect("book");
         })
         .catch((err) => {
